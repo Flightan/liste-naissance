@@ -1,5 +1,5 @@
 {
-  "name": "Liste de naissance",
+  "name": "liste-de-naissance",
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {

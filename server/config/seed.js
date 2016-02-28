@@ -6,17 +6,6 @@
 'use strict';
 import Thing from '../api/thing/thing.model';
 
-// name: String,
-// info: String,
-// amount: Number,
-// url: String,
-// image: String,
-// contributors: [{
-//   name: String,
-//   amount: Number,
-//   comment: String
-// }]
-
 Thing.find({}).removeAsync()
   .then(() => {
     Thing.create({
