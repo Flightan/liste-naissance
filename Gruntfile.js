@@ -14,10 +14,7 @@ module.exports = function (grunt) {
     express: 'grunt-express-server',
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn',
-    protractor: 'grunt-protractor-runner',
     buildcontrol: 'grunt-build-control',
-    istanbul_check_coverage: 'grunt-mocha-istanbul',
     ngconstant: 'grunt-ng-constant'
   });
 
@@ -76,14 +73,6 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.client %>/{app,components}/**/*.css'],
         tasks: ['injector:css']
       },
-      mochaTest: {
-        files: ['<%= yeoman.server %>/**/*.{spec,integration}.js'],
-        tasks: ['env:test', 'mochaTest']
-      },
-      jsTest: {
-        files: ['<%= yeoman.client %>/{app,components}/**/*.{spec,mock}.js'],
-        tasks: ['newer:jshint:all', 'wiredep:test', 'karma']
-      },
       injectSass: {
         files: ['<%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
         tasks: ['injector:sass']
@@ -131,16 +120,7 @@ module.exports = function (grunt) {
         },
         src: ['<%= yeoman.server %>/**/!(*.spec|*.integration).js']
       },
-      serverTest: {
-        options: {
-          jshintrc: '<%= yeoman.server %>/.jshintrc-spec'
-        },
-        src: ['<%= yeoman.server %>/**/*.{spec,integration}.js']
-      },
-      all: ['<%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock|app.constant).js'],
-      test: {
-        src: ['<%= yeoman.client %>/{app,components}/**/*.{spec,mock}.js']
-      }
+      all: ['<%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock|app.constant).js']
     },
 
     jscs: {
@@ -238,10 +218,6 @@ module.exports = function (grunt) {
       client: {
         src: '<%= yeoman.client %>/index.html',
         ignorePath: '<%= yeoman.client %>/',
-      },
-      test: {
-        src: './karma.conf.js',
-        devDependencies: true
       }
     },
 
@@ -357,13 +333,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Replace Google CDN references
-    cdnify: {
-      dist: {
-        html: ['<%= yeoman.dist %>/<%= yeoman.client %>/*.html']
-      }
-    },
-
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
@@ -435,10 +404,6 @@ module.exports = function (grunt) {
         'newer:babel:client',
         'sass',
       ],
-      test: [
-        'newer:babel:client',
-        'sass',
-      ],
       debug: {
         tasks: [
           'nodemon',
@@ -455,82 +420,7 @@ module.exports = function (grunt) {
       ]
     },
 
-    // Test settings
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        singleRun: true
-      }
-    },
-
-    mochaTest: {
-      options: {
-        reporter: 'spec',
-        require: 'mocha.conf.js',
-        timeout: 5000 // set default mocha spec timeout
-      },
-      unit: {
-        src: ['<%= yeoman.server %>/**/*.spec.js']
-      },
-      integration: {
-        src: ['<%= yeoman.server %>/**/*.integration.js']
-      }
-    },
-
-    mocha_istanbul: {
-      unit: {
-        options: {
-          excludes: ['**/*.{spec,mock,integration}.js'],
-          reporter: 'spec',
-          require: ['mocha.conf.js'],
-          mask: '**/*.spec.js',
-          coverageFolder: 'coverage/server/unit'
-        },
-        src: '<%= yeoman.server %>'
-      },
-      integration: {
-        options: {
-          excludes: ['**/*.{spec,mock,integration}.js'],
-          reporter: 'spec',
-          require: ['mocha.conf.js'],
-          mask: '**/*.integration.js',
-          coverageFolder: 'coverage/server/integration'
-        },
-        src: '<%= yeoman.server %>'
-      }
-    },
-
-    istanbul_check_coverage: {
-      default: {
-        options: {
-          coverageFolder: 'coverage/**',
-          check: {
-            lines: 80,
-            statements: 80,
-            branches: 80,
-            functions: 80
-          }
-        }
-      }
-    },
-
-    protractor: {
-      options: {
-        configFile: 'protractor.conf.js'
-      },
-      chrome: {
-        options: {
-          args: {
-            browser: 'chrome'
-          }
-        }
-      }
-    },
-
     env: {
-      test: {
-        NODE_ENV: 'test'
-      },
       prod: {
         NODE_ENV: 'production'
       },
@@ -704,98 +594,6 @@ module.exports = function (grunt) {
     grunt.task.run(['serve']);
   });
 
-  grunt.registerTask('test', function(target, option) {
-    if (target === 'server') {
-      return grunt.task.run([
-        'env:all',
-        'env:test',
-        'mochaTest:unit',
-        'mochaTest:integration'
-      ]);
-    }
-
-    else if (target === 'client') {
-      return grunt.task.run([
-        'clean:server',
-        'env:all',
-        'concurrent:pre',
-        'concurrent:test',
-        'injector',
-        'postcss',
-        'wiredep:test',
-        'karma'
-      ]);
-    }
-
-    else if (target === 'e2e') {
-
-      if (option === 'prod') {
-        return grunt.task.run([
-          'build',
-          'env:all',
-          'env:prod',
-          'express:prod',
-          'protractor'
-        ]);
-      }
-
-      else {
-        return grunt.task.run([
-          'clean:server',
-          'env:all',
-          'env:test',
-          'concurrent:pre',
-          'concurrent:test',
-          'injector',
-          'wiredep:client',
-          'postcss',
-          'express:dev',
-          'protractor'
-        ]);
-      }
-    }
-
-    else if (target === 'coverage') {
-
-      if (option === 'unit') {
-        return grunt.task.run([
-          'env:all',
-          'env:test',
-          'mocha_istanbul:unit'
-        ]);
-      }
-
-      else if (option === 'integration') {
-        return grunt.task.run([
-          'env:all',
-          'env:test',
-          'mocha_istanbul:integration'
-        ]);
-      }
-
-      else if (option === 'check') {
-        return grunt.task.run([
-          'istanbul_check_coverage'
-        ]);
-      }
-
-      else {
-        return grunt.task.run([
-          'env:all',
-          'env:test',
-          'mocha_istanbul',
-          'istanbul_check_coverage'
-        ]);
-      }
-
-    }
-
-    else grunt.task.run([
-      'test:server',
-      'test:client'
-    ]);
-  });
-
   grunt.registerTask('build', [
     'clean:dist',
     'concurrent:pre',
@@ -809,7 +607,6 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'copy:dist',
     'babel:server',
-    'cdnify',
     'cssmin',
     'uglify',
     'filerev',
@@ -818,7 +615,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'test',
     'build'
   ]);
 };
