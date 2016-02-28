@@ -6,35 +6,65 @@
 'use strict';
 import Thing from '../api/thing/thing.model';
 
+// name: String,
+// info: String,
+// amount: Number,
+// url: String,
+// image: String,
+// contributors: [{
+//   name: String,
+//   amount: Number,
+//   comment: String
+// }]
+
 Thing.find({}).removeAsync()
   .then(() => {
     Thing.create({
-      name: 'Development Tools',
-      info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
-             'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
-             'Stylus, Sass, and Less.'
-    }, {
-      name: 'Server and Client integration',
-      info: 'Built with a powerful and fun stack: MongoDB, Express, ' +
-             'AngularJS, and Node.'
-    }, {
-      name: 'Smart Build System',
-      info: 'Build system ignores `spec` files, allowing you to keep ' +
-             'tests alongside code. Automatic injection of scripts and ' +
-             'styles into your index.html'
-    }, {
-      name: 'Modular Structure',
-      info: 'Best practice client and server structures allow for more ' +
-             'code reusability and maximum scalability'
-    }, {
-      name: 'Optimized Build',
-      info: 'Build process packs up your templates as a single JavaScript ' +
-             'payload, minifies your scripts/css/images, and rewrites asset ' +
-             'names for caching.'
-    }, {
-      name: 'Deployment Ready',
-      info: 'Easily deploy your app to Heroku or Openshift with the heroku ' +
-             'and openshift subgenerators'
+      name: 'Poussette Yoyo Babyzen',
+      amount: 589,
+      given: 0,
+      image: 'yoyo-black-frame-taupe.jpg'
+    });
+
+    Thing.create({
+      name: 'Coussin réducteur',
+      amount: 33,
+      given: 0,
+      image: 'coussin.png'
+    });
+
+    Thing.create({
+      name: 'Transat',
+      amount: 10,
+      given: 0,
+      image: 'transat.png'
+    });
+
+    Thing.create({
+      name: 'Chaise haute',
+      amount: 148,
+      given: 0,
+      image: 'chaise.png'
+    });
+
+    Thing.create({
+      name: 'Transat',
+      amount: 79,
+      given: 0,
+      image: 'transat+chaise.png'
+    });
+
+    Thing.create({
+      name: 'Chauffe biberon',
+      amount: 40,
+      given: 0,
+      image: 'chauffe-biberon.png'
+    });
+
+    Thing.create({
+      name: 'Robot babycook',
+      amount: 185,
+      given: 0,
+      image: 'robot.png'
     });
   });
-

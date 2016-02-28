@@ -9,4 +9,7 @@ angular.module('listeNaissanceApp')
         controller: 'MainController',
         controllerAs: 'main'
       });
+  })
+  .filter('urlencode', function() {
+    return window.encodeURIComponent;
   });

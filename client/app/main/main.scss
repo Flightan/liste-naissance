@@ -5,23 +5,103 @@
 #banner {
   border-bottom: none;
   margin-top: -20px;
-}
+  padding: 50px 0;
+  background-image: linear-gradient(to left, rgb(253, 116, 108), rgb(255, 144, 104));
 
-#banner h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
-}
+  .polaroid {
+    position: relative;
+    transform: rotate(-4deg);
+  }
 
-.hero-unit {
-  position: relative;
-  padding: 30px 15px;
-  color: #F5F5F5;
-  text-align: center;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  background: #4393B9;
+  .polaroid img {
+    width: 100%;
+    border: 10px solid #fff;
+    border-bottom: 45px solid #fff;
+    -webkit-box-shadow: 3px 3px 3px #777;
+       -moz-box-shadow: 3px 3px 3px #777;
+            box-shadow: 3px 3px 3px #777;
+  }
+
+  .polaroid p {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 0px;
+
+    // font-weight:bold;
+    color: #777;
+  }
+
+  .jumbotron {
+    background: none;
+    border: none;
+    color: white;
+
+    h1 {
+      font-size: 50px;
+    }
+    p {
+      font-size: 34px;
+    }
+  }
 }
 
 .navbar-text {
   margin-left: 15px;
+}
+
+li.thing {
+  img {
+    width: 100%;
+  }
+}
+
+#wrapper {
+  background-color: whitesmoke;
+  padding-bottom: 70px;
+}
+
+.price {
+  font-weight: 200;
+}
+
+.bg-grey {
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #d9d9de;
+  margin-bottom: 10px;
+}
+
+.bg-green {
+  overflow: hidden;
+  height: 8px;
+  background-color: #2bde73;
+  border-radius: 4px;
+}
+
+.thumbnail {
+  img {
+    height: 160px;
+    width: auto;
+  }
+}
+
+.caption {
+  h3 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+}
+
+.content {
+  padding: 0 10px;
+
+  td {
+    padding-right: 25px;
+
+    p {
+      margin: 0;
+    }
+  }
 }

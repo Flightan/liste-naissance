@@ -1,18 +1,57 @@
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="polaroid">
+          <img ng-src="assets/images/IMG_0647.JPG" alt="">
+        </div>
+      </div>
+      <div class="col-sm-8 jumbotron">
+        <h1>Le grand jour approche&nbsp;!</h1>
+        <p class="lead">Si vous souhaitez nous aider à préparer l'arrivée de bébé,<br> voici notre liste d'idées</p>
+      </div>
+    </div>
   </div>
 </header>
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in main.awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}</a></li>
-      </ul>
+<div id="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">Liste de naissance</h1>
+        <ul class="col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in main.awesomeThings">
+          <li class="thumbnail">
+            <img ng-src="assets/images/{{thing.image}}" alt="">
+
+            <div class="caption">
+              <h3>{{thing.name}}</h3>
+
+              <div class="content">
+                <div class="bg-grey">
+                  <div class="bg-green" style="width: {{main.compute(thing)}}%"></div>
+                </div>
+
+                <table>
+                  <tr>
+                    <td><p class="lead">{{main.compute(thing)}}%</p></td>
+                    <td><p class="lead">{{thing.amount}} €</p></td>
+                  </tr>
+                  <tr>
+                    <td>Contribué</td>
+                    <td>Prix</td>
+                  </tr>
+                </table>
+
+                <div class="text-right">
+                  <a class="btn btn-primary" href="mailto:del.florian@gmail.com,mirana.ralambo@gmail.com?subject={{main.subject | urlencode}}&body={{main.body(thing) | urlencode}}">
+                    Participer
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
