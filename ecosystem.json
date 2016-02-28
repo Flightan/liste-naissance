@@ -18,7 +18,7 @@
       "user" : "node",
       "host" : "scaleway",
       "ref"  : "origin/master",
-      "repo" : "https://github.com/Flightan/liste-naissance.git",
+      "repo" : "git@github.com:Flightan/liste-naissance.git",
       "path" : "/home/deploy/liste-naissance",
       "post-deploy" : "npm install ; bower install ; grunt build ; pm2 startOrRestart ecosystem.json --env production"
     }
